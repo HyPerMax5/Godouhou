@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5bfq3vrdbj22"]
+
+[ext_resource type="Script" path="res://scripts/Character.gd" id="1_wa8qs"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_flvug"]
+noise_type = 3
+seed = 185
+frequency = 0.9536
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mgmwh"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_flvug")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5r2ap"]
+
+[node name="Character" type="CharacterBody2D"]
+position = Vector2(323, 292)
+script = ExtResource("1_wa8qs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("NoiseTexture2D_mgmwh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_5r2ap")
+
+[node name="bullet-spawn" type="Marker2D" parent="."]
+position = Vector2(0, -52)
+gizmo_extents = 19.0

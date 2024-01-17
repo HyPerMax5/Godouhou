@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8bagiapfhebg"]
+
+[ext_resource type="PackedScene" uid="uid://b5bfq3vrdbj22" path="res://scenes/character.tscn" id="1_bo1ix"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2biue"]
+size = Vector2(10, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8fus"]
+size = Vector2(660, 10)
+
+[sub_resource type="Gradient" id="Gradient_bclcw"]
+offsets = PackedFloat32Array(0, 0.675325)
+colors = PackedColorArray(0, 0, 0, 1, 0.318951, 0.343518, 0.334454, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_i7ayp"]
+frequency = 0.8745
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6vs34"]
+width = 5
+height = 5
+invert = true
+seamless_blend_skirt = 0.418
+color_ramp = SubResource("Gradient_bclcw")
+noise = SubResource("FastNoiseLite_i7ayp")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_bo1ix")]
+top_level = true
+position = Vector2(320, 305)
+
+[node name="Player-Bounds" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player-Bounds"]
+position = Vector2(-5, 180)
+shape = SubResource("RectangleShape2D_2biue")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Player-Bounds"]
+position = Vector2(645, 180)
+shape = SubResource("RectangleShape2D_2biue")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Player-Bounds"]
+position = Vector2(320, -5)
+shape = SubResource("RectangleShape2D_i8fus")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Player-Bounds"]
+position = Vector2(320, 365)
+shape = SubResource("RectangleShape2D_i8fus")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 180)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_offset = Vector2(0, 100)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(321, 176.625)
+scale = Vector2(129.6, 72.65)
+texture = SubResource("NoiseTexture2D_6vs34")
