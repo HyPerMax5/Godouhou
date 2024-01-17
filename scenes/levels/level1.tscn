@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8bagiapfhebg"]
+[gd_scene load_steps=8 format=3 uid="uid://c8bagiapfhebg"]
 
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_2np7j"]
 [ext_resource type="PackedScene" uid="uid://b5bfq3vrdbj22" path="res://scenes/character.tscn" id="1_bo1ix"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2biue"]
@@ -8,22 +9,18 @@ size = Vector2(10, 360)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i8fus"]
 size = Vector2(660, 10)
 
-[sub_resource type="Gradient" id="Gradient_bclcw"]
-offsets = PackedFloat32Array(0, 0.675325)
-colors = PackedColorArray(0, 0, 0, 1, 0.318951, 0.343518, 0.334454, 1)
+[sub_resource type="Gradient" id="Gradient_vuh17"]
+colors = PackedColorArray(0, 0, 0, 1, 0.359506, 0.314538, 0.192518, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_i7ayp"]
-frequency = 0.8745
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4h714"]
+frequency = 1.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6vs34"]
-width = 5
-height = 5
-invert = true
-seamless_blend_skirt = 0.418
-color_ramp = SubResource("Gradient_bclcw")
-noise = SubResource("FastNoiseLite_i7ayp")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r2rtf"]
+color_ramp = SubResource("Gradient_vuh17")
+noise = SubResource("FastNoiseLite_4h714")
 
-[node name="Node2D" type="Node2D"]
+[node name="Level" type="Node2D"]
+script = ExtResource("1_2np7j")
 
 [node name="Player" parent="." instance=ExtResource("1_bo1ix")]
 top_level = true
@@ -53,9 +50,9 @@ position = Vector2(320, 180)
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_offset = Vector2(0, 100)
+motion_mirroring = Vector2(0, 256)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(321, 176.625)
-scale = Vector2(129.6, 72.65)
-texture = SubResource("NoiseTexture2D_6vs34")
+position = Vector2(320, 180)
+scale = Vector2(1.28906, 0.742188)
+texture = SubResource("NoiseTexture2D_r2rtf")
