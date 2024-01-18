@@ -1,13 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8bagiapfhebg"]
+[gd_scene load_steps=9 format=3 uid="uid://c8bagiapfhebg"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2np7j"]
 [ext_resource type="PackedScene" uid="uid://b5bfq3vrdbj22" path="res://scenes/character.tscn" id="1_bo1ix"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2biue"]
-size = Vector2(10, 360)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8fus"]
-size = Vector2(660, 10)
+[ext_resource type="PackedScene" uid="uid://c5nlq18hjxxl0" path="res://scenes/hostile.tscn" id="3_8o1dl"]
+[ext_resource type="PackedScene" uid="uid://du37byvsk46hx" path="res://scenes/shared/player_bounds.tscn" id="4_nko3o"]
+[ext_resource type="PackedScene" uid="uid://beyvkrc6dc81" path="res://scenes/main_UI.tscn" id="5_hi2au"]
 
 [sub_resource type="Gradient" id="Gradient_vuh17"]
 colors = PackedColorArray(0, 0, 0, 1, 0.359506, 0.314538, 0.192518, 1)
@@ -16,6 +13,9 @@ colors = PackedColorArray(0, 0, 0, 1, 0.359506, 0.314538, 0.192518, 1)
 frequency = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r2rtf"]
+width = 1024
+height = 1024
+seamless = true
 color_ramp = SubResource("Gradient_vuh17")
 noise = SubResource("FastNoiseLite_4h714")
 
@@ -24,35 +24,31 @@ script = ExtResource("1_2np7j")
 
 [node name="Player" parent="." instance=ExtResource("1_bo1ix")]
 top_level = true
-position = Vector2(320, 305)
+position = Vector2(208, 321)
 
-[node name="Player-Bounds" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player-Bounds"]
-position = Vector2(-5, 180)
-shape = SubResource("RectangleShape2D_2biue")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Player-Bounds"]
-position = Vector2(645, 180)
-shape = SubResource("RectangleShape2D_2biue")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Player-Bounds"]
-position = Vector2(320, -5)
-shape = SubResource("RectangleShape2D_i8fus")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Player-Bounds"]
-position = Vector2(320, 365)
-shape = SubResource("RectangleShape2D_i8fus")
+[node name="Player-Bounds" parent="." instance=ExtResource("4_nko3o")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+visible = false
 position = Vector2(320, 180)
+enabled = false
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2(0, 256)
+position = Vector2(0, 69)
+motion_mirroring = Vector2(0, 491)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(320, 180)
-scale = Vector2(1.28906, 0.742188)
+position = Vector2(320, 156)
+scale = Vector2(0.834229, 0.629195)
 texture = SubResource("NoiseTexture2D_r2rtf")
+
+[node name="Player-Spawn" type="Marker2D" parent="."]
+position = Vector2(208, 321)
+gizmo_extents = 28.0
+
+[node name="Basic_hostile" parent="." instance=ExtResource("3_8o1dl")]
+position = Vector2(216, 26)
+
+[node name="UI" parent="." instance=ExtResource("5_hi2au")]

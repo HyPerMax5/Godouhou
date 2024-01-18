@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5bfq3vrdbj22"]
+[gd_scene load_steps=6 format=3 uid="uid://b5bfq3vrdbj22"]
 
 [ext_resource type="Script" path="res://scripts/Character.gd" id="1_wa8qs"]
 
@@ -8,14 +8,19 @@ seed = 185
 frequency = 0.9536
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mgmwh"]
-width = 64
-height = 64
+width = 32
+height = 32
 noise = SubResource("FastNoiseLite_flvug")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5r2ap"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_46n6f"]
+size = Vector2(36, 36)
 
 [node name="Character" type="CharacterBody2D"]
 position = Vector2(323, 292)
+collision_layer = 2
 script = ExtResource("1_wa8qs")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -26,5 +31,31 @@ scale = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_5r2ap")
 
 [node name="bullet-spawn" type="Marker2D" parent="."]
-position = Vector2(0, -52)
+position = Vector2(0, -37)
 gizmo_extents = 19.0
+
+[node name="bullet-parent" type="Node" parent="bullet-spawn"]
+
+[node name="shoot-timer" type="Timer" parent="."]
+wait_time = 0.064
+
+[node name="Graze" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 16
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Graze"]
+shape = SubResource("RectangleShape2D_46n6f")
+
+[node name="Death" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Death"]
+scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_5r2ap")
+
+[connection signal="timeout" from="shoot-timer" to="." method="on_shoottimer_timeout"]
+[connection signal="body_entered" from="Graze" to="." method="on_graze_body_entered"]
+[connection signal="body_entered" from="Death" to="." method="on_death_body_entered"]
