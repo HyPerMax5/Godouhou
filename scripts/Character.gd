@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 300.0
+const SPEED = 250.0
 var speed_multi = 0.25
 var bullet = preload("res://scenes/shared/bullet1.tscn")
 var dead:bool = false

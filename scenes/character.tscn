@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://b5bfq3vrdbj22"]
 
 [ext_resource type="Script" path="res://scripts/Character.gd" id="1_wa8qs"]
-[ext_resource type="AudioStream" uid="uid://c8675hgvwvawf" path="res://assets/audio/shoot.ogg" id="2_6uk43"]
+[ext_resource type="AudioStream" uid="uid://c8675hgvwvawf" path="res://assets/audio/sfx/player/shoot.ogg" id="2_ubmhq"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_flvug"]
 noise_type = 3
@@ -79,7 +79,7 @@ shape = SubResource("RectangleShape2D_5r2ap")
 debug_color = Color(0.866667, 0.305882, 0.447059, 0.419608)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_6uk43")
+stream = ExtResource("2_ubmhq")
 
 [node name="Collection" type="Area2D" parent="."]
 visible = false
