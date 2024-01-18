@@ -49,6 +49,10 @@ position = Vector2(208, 321)
 gizmo_extents = 28.0
 
 [node name="Basic_hostile" parent="." instance=ExtResource("3_8o1dl")]
+visible = false
 position = Vector2(216, 26)
 
 [node name="UI" parent="." instance=ExtResource("5_hi2au")]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(216, -70)

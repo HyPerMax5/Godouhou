@@ -1,8 +1,75 @@
-[gd_scene load_steps=2 format=3 uid="uid://beyvkrc6dc81"]
+[gd_scene load_steps=10 format=3 uid="uid://beyvkrc6dc81"]
 
 [ext_resource type="Script" path="res://scripts/main_UI.gd" id="1_vx3bm"]
+[ext_resource type="Texture2D" uid="uid://ddyun8iv0djq1" path="res://icon.svg" id="2_p7h7v"]
+[ext_resource type="Texture2D" uid="uid://duq1oww3mk5j5" path="res://assets/sprites/big-char/godette/godette.png" id="2_vol3m"]
+[ext_resource type="PackedScene" uid="uid://b76u1dxijviv8" path="res://scenes/ui/life.tscn" id="2_wbumg"]
+[ext_resource type="PackedScene" uid="uid://b5k2b7kk0tjbs" path="res://scenes/ui/bomb.tscn" id="3_7lfp6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uloli"]
+bg_color = Color(0.109804, 0.12549, 0.172549, 0.756863)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 20
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3qqs3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qy8ti"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8kykv"]
 
 [node name="UI" type="CanvasLayer"]
+script = ExtResource("1_vx3bm")
+
+[node name="Convo-box" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 75.0
+offset_top = 350.0
+offset_right = 375.0
+offset_bottom = 400.0
+
+[node name="TextureRect" type="TextureRect" parent="Convo-box"]
+modulate = Color(0.470588, 0.470588, 0.470588, 1)
+layout_mode = 0
+offset_left = -110.0
+offset_top = -120.0
+offset_right = 98.0
+offset_bottom = 88.0
+texture = ExtResource("2_vol3m")
+expand_mode = 3
+
+[node name="Panel" type="Panel" parent="Convo-box"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.05
+anchor_right = 1.05
+anchor_bottom = 1.42
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uloli")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Convo-box/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Convo-box/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "I've got to at least make you waste a bomb before the mistress gets mad at me!"
+scroll_active = false
 
 [node name="ui" type="Control" parent="."]
 layout_mode = 3
@@ -11,7 +78,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_vx3bm")
 
 [node name="ColorRect" type="ColorRect" parent="ui"]
 layout_mode = 1
@@ -19,7 +85,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 10.0
 grow_horizontal = 2
-color = Color(0.490196, 0.490196, 0.490196, 1)
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="ui"]
 layout_mode = 1
@@ -27,7 +93,7 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 25.0
 grow_vertical = 2
-color = Color(0.490196, 0.490196, 0.490196, 1)
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
 
 [node name="ColorRect3" type="ColorRect" parent="ui"]
 layout_mode = 1
@@ -38,7 +104,7 @@ anchor_bottom = 1.0
 offset_left = -215.0
 grow_horizontal = 0
 grow_vertical = 2
-color = Color(0.490196, 0.490196, 0.490196, 1)
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
 
 [node name="ColorRect4" type="ColorRect" parent="ui"]
 layout_mode = 1
@@ -49,35 +115,163 @@ anchor_bottom = 1.0
 offset_top = -40.0
 grow_horizontal = 2
 grow_vertical = 0
-color = Color(0.490196, 0.490196, 0.490196, 1)
-
-[node name="FPS" type="Label" parent="ui"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 560.0
-offset_top = 430.0
-offset_right = 633.0
-offset_bottom = 453.0
-text = "60.99 fps"
-
-[node name="Delta" type="Label" parent="ui"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 560.0
-offset_top = 450.0
-offset_right = 633.0
-offset_bottom = 473.0
-text = "60.99 delta"
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="ui"]
 layout_mode = 0
 anchor_left = 0.6875
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
 metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ui/MarginContainer"]
 layout_mode = 2
 
+[node name="Score" type="HBoxContainer" parent="ui/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Score" type="Label" parent="ui/MarginContainer/VBoxContainer/Score"]
+layout_mode = 2
+text = "Score"
+
+[node name="Control" type="Panel" parent="ui/MarginContainer/VBoxContainer/Score"]
+custom_minimum_size = Vector2(31, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3qqs3")
+
+[node name="ScoreLabel" type="Label" parent="ui/MarginContainer/VBoxContainer/Score"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="Highscore2" type="HBoxContainer" parent="ui/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Highscore" type="Label" parent="ui/MarginContainer/VBoxContainer/Highscore2"]
+layout_mode = 2
+text = "Highscore"
+
+[node name="HighscoreLabel" type="Label" parent="ui/MarginContainer/VBoxContainer/Highscore2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="Control" type="Panel" parent="ui/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3qqs3")
+
+[node name="Lives_container" type="HBoxContainer" parent="ui/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Lives" type="Label" parent="ui/MarginContainer/VBoxContainer/Lives_container"]
+layout_mode = 2
+text = "Player"
+
+[node name="Panel" type="Panel" parent="ui/MarginContainer/VBoxContainer/Lives_container"]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qy8ti")
+
+[node name="Lives_container" type="HBoxContainer" parent="ui/MarginContainer/VBoxContainer/Lives_container"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="life" parent="ui/MarginContainer/VBoxContainer/Lives_container/Lives_container" instance=ExtResource("2_wbumg")]
+layout_mode = 2
+
+[node name="Bomb_container" type="HBoxContainer" parent="ui/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Bomb" type="Label" parent="ui/MarginContainer/VBoxContainer/Bomb_container"]
+layout_mode = 2
+text = "Bomb"
+
+[node name="Panel" type="Panel" parent="ui/MarginContainer/VBoxContainer/Bomb_container"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8kykv")
+
+[node name="Bomb_container" type="HBoxContainer" parent="ui/MarginContainer/VBoxContainer/Bomb_container"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="bomb" parent="ui/MarginContainer/VBoxContainer/Bomb_container/Bomb_container" instance=ExtResource("3_7lfp6")]
+layout_mode = 2
+
+[node name="Control2" type="Panel" parent="ui/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3qqs3")
+
+[node name="Power" type="HBoxContainer" parent="ui/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Power" type="Label" parent="ui/MarginContainer/VBoxContainer/Power"]
+layout_mode = 2
+text = "Power"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Powerbar" type="ProgressBar" parent="ui/MarginContainer/VBoxContainer/Power"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 24)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="FullPower" type="Label" parent="ui/MarginContainer/VBoxContainer/Power/Powerbar"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.318182
+anchor_top = 0.0208333
+anchor_right = 0.681818
+anchor_bottom = 0.979167
+grow_horizontal = 2
+grow_vertical = 2
+text = "MAX"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Graze" type="HBoxContainer" parent="ui/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Graze" type="Label" parent="ui/MarginContainer/VBoxContainer/Graze"]
+layout_mode = 2
+text = "Graze"
+
+[node name="Graze_count" type="Label" parent="ui/MarginContainer/VBoxContainer/Graze"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="TextureRect" type="TextureRect" parent="ui/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_p7h7v")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="FPS" type="Label" parent="ui/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_direction = 3
+layout_mode = 2
+text = "60.99 fps"
+
+[node name="Delta" type="Label" parent="ui/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_direction = 3
+layout_mode = 2
+text = "60.99 delta"
+
 [node name="Camera2D" type="Camera2D" parent="ui"]
 position = Vector2(320, 240)
+
+[connection signal="value_changed" from="ui/MarginContainer/VBoxContainer/Power/Powerbar" to="." method="_on_progress_bar_value_changed"]

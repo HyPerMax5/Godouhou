@@ -1,6 +1,13 @@
 extends Node
+signal lives_updated(lives)
+signal bombs_updated(bombs)
+signal graze_updated(graze)
+signal score_updated(score)
+
 
 var lives:int = 3
+var bombs:int = 2
+
 var graze:int
 var score:int
 
@@ -12,10 +19,18 @@ var collision_dict = {
 	"Hostile" : 0b10000,
 	"Hostile Hitbox" : 0b100000,
 	"Hostile Hurtbox" : 0b1000000,
-	"Player&Graze" : 0b1001,
+	"Player Collector" : 0b10000000,
+	"Player&Graze" : 0b1010,
+	"Player&Collider" : 0b10000010,
 }
 
 
 func _ready() -> void:
+	var max_bombs:int = 5
+	var min_bombs:int = 0
+	var max_lives:int = 5
+	var min_lives:int = 0
+	bombs = clampi(bombs, min_bombs, max_bombs)
+	lives = clampi(lives, min_lives, max_lives)
 	pass
 	

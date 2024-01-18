@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbdlclnyhwou6"]
+
+[ext_resource type="Script" path="res://scripts/drop.gd" id="1_48ws7"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fglkx"]
+
+[node name="Power" type="Sprite2D"]
+position = Vector2(-2.38419e-07, -2.38419e-07)
+scale = Vector2(10, 10)
+texture = SubResource("PlaceholderTexture2D_fglkx")
+script = ExtResource("1_48ws7")

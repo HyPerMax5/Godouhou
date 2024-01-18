@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5bfq3vrdbj22"]
+[gd_scene load_steps=8 format=3 uid="uid://b5bfq3vrdbj22"]
 
 [ext_resource type="Script" path="res://scripts/Character.gd" id="1_wa8qs"]
+[ext_resource type="AudioStream" uid="uid://c8675hgvwvawf" path="res://assets/audio/shoot.ogg" id="2_6uk43"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_flvug"]
 noise_type = 3
@@ -15,8 +16,12 @@ noise = SubResource("FastNoiseLite_flvug")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5r2ap"]
 size = Vector2(8, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_46n6f"]
-size = Vector2(36, 36)
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_3yqd0"]
+a = Vector2(0, -2)
+b = Vector2(0, 34)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t31cj"]
+radius = 85.0529
 
 [node name="Character" type="CharacterBody2D"]
 position = Vector2(323, 292)
@@ -27,6 +32,7 @@ script = ExtResource("1_wa8qs")
 texture = SubResource("NoiseTexture2D_mgmwh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 scale = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_5r2ap")
 
@@ -45,16 +51,45 @@ collision_mask = 16
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Graze"]
-shape = SubResource("RectangleShape2D_46n6f")
+position = Vector2(-17, -16)
+shape = SubResource("SegmentShape2D_3yqd0")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Graze"]
+position = Vector2(17, -16)
+shape = SubResource("SegmentShape2D_3yqd0")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Graze"]
+position = Vector2(16, 17)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_3yqd0")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Graze"]
+position = Vector2(16, -17)
+rotation = 1.5708
+shape = SubResource("SegmentShape2D_3yqd0")
 
 [node name="Death" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 2
 collision_mask = 16
 monitorable = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Death"]
 scale = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_5r2ap")
+debug_color = Color(0.866667, 0.305882, 0.447059, 0.419608)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_6uk43")
+
+[node name="Collection" type="Area2D" parent="."]
+visible = false
+collision_layer = 128
+collision_mask = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collection"]
+shape = SubResource("CircleShape2D_t31cj")
+debug_color = Color(0.603922, 0.541176, 0.0392157, 0.419608)
 
 [connection signal="timeout" from="shoot-timer" to="." method="on_shoottimer_timeout"]
 [connection signal="body_entered" from="Graze" to="." method="on_graze_body_entered"]

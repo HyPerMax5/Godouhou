@@ -11,12 +11,16 @@ var can_die:bool = true
 @onready var bullet_parent = $"bullet-spawn/bullet-parent"
 @onready var shoot_timer = $"shoot-timer"
 @onready var graze_area = $Graze
+@onready var death_area = $Death
+@onready var collection_area = $Collection
 @onready var sprite = $Sprite2D
-
+@onready var audio = $AudioStreamPlayer
 
 func _ready() -> void:
 	self.add_to_group("Player")
 	graze_area.add_to_group("Player Graze")
+	death_area.add_to_group("Player Death")
+	collection_area.add_to_group("Player Collection")
 
 
 func _physics_process(_delta: float) -> void:
@@ -36,8 +40,11 @@ func _input(_event: InputEvent) -> void:
 		shoot_timer.start()
 	elif  Input.is_action_just_released("shoot"):
 		shoot_timer.stop()
+		audio.stop()
 	
 func on_shoottimer_timeout() -> void:
+	audio.pitch_scale = randf_range(0.47, 0.52)
+	audio.play()
 	var char_bullet := bullet.instantiate()
 	char_bullet.collision = Stat.collision_dict["Hostile"]
 	bullet_parent.add_child(char_bullet)
@@ -48,8 +55,7 @@ func invulnerable() -> void:
 	dead = false
 	start_flashing()
 	
-	
-	
+		
 func start_flashing():
 	var tween_time:float = 0.15
 	var flash := 4
@@ -68,15 +74,22 @@ func on_graze_body_entered(_body) -> void:
 	await get_tree().create_timer(0.015).timeout
 	if !dead:
 		Stat.graze += 1
+		Stat.emit_signal("graze_updated", Stat.graze)
 
 func on_death_body_entered(_body) -> void:
 	if can_die and Stat.lives > 0:
 		Stat.lives -= 1
+		Stat.emit_signal("lives_updated", Stat.lives)
 		dead = true
 		can_die = false
 		invulnerable()
 	elif can_die and Stat.lives == 0:
 		#game_over
+		Stat.emit_signal("lives_updated", Stat.lives)
 		dead = true
 		can_die = false
 		self.queue_free()
+
+func on_collected(item):
+	print("got", item)
+	pass

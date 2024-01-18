@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5k2b7kk0tjbs"]
+
+[ext_resource type="Texture2D" uid="uid://cy6nn26vo7ino" path="res://assets/sprites/bomb.png" id="1_gi75l"]
+
+[node name="bomb" type="TextureRect"]
+texture = ExtResource("1_gi75l")
+expand_mode = 2

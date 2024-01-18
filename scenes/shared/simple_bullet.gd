@@ -8,8 +8,7 @@ var distance_travelled:float
 func _ready() -> void:
 	distance_travelled = 1
 	shape.radius = 3
-	pass
-	
+
 func _process(delta: float) -> void:
 	var distance := speed * delta
 	var motion := -global_transform.y * speed * delta
@@ -20,17 +19,19 @@ func _process(delta: float) -> void:
 	query.set_shape(shape)
 	query.collision_mask = collision
 	query.transform = global_transform
+	query.collide_with_areas = true
 	var result := get_world_2d().direct_space_state.intersect_shape(query, 1)
 	
 	for hit in result:
-		if hit.collider.is_in_group("Player"):
-			hit.collider.on_death_body_entered(null)
+		print(result)
+		if hit.collider.is_in_group("Player Death"):
+			hit.collider.emit_signal("body_entered", null)
 			queue_free()
-		elif hit.collider.is_in_group("Hostile"):
+		if hit.collider.is_in_group("Hostile"):
 			hit.collider.on_hitbox_entered()
 			queue_free()
-		elif hit.collider.is_in_group("Player Graze"):
-			hit.collider.on_graze_body_entered()
+		if hit.collider.is_in_group("Player Graze"):
+			hit.collider.emit_signal("body_entered", null)
 	if distance_travelled > 1200:
 		queue_free()
 	
