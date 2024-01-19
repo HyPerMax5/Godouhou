@@ -22,11 +22,6 @@ autostart = true
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_fcoqh")
 
-[node name="bullet_origin" type="Marker2D" parent="."]
-position = Vector2(0, 15)
-
-[node name="bullet_parent" type="Node" parent="bullet_origin"]
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="timeout" from="Shoot-timer" to="." method="_on_shoottimer_timeout"]

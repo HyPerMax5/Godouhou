@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 250.0
+const SPEED = 220.0
 var speed_multi = 0.25
 var bullet = preload("res://scenes/shared/bullet1.tscn")
 var dead:bool = false
@@ -81,7 +81,6 @@ func fire_bullet1():
 	char_bullet.set_as_top_level(true)
 	if Input.is_action_pressed("slow_move"):
 		char_bullet.global_position = position + Vector2(-30, -40)
-		#char_bullet.global_position = global_position.lerp(Vector2(-30, -40), delta * anim_speed)
 	else:
 		char_bullet.global_position = position + Vector2(-55, -40)
 func fire_bullet2():

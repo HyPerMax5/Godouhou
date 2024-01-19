@@ -1,11 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://c8bagiapfhebg"]
+[gd_scene load_steps=11 format=3 uid="uid://c8bagiapfhebg"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2np7j"]
 [ext_resource type="PackedScene" uid="uid://b5bfq3vrdbj22" path="res://scenes/character.tscn" id="1_bo1ix"]
-[ext_resource type="PackedScene" uid="uid://c5nlq18hjxxl0" path="res://scenes/hostile.tscn" id="3_8o1dl"]
 [ext_resource type="PackedScene" uid="uid://du37byvsk46hx" path="res://scenes/shared/player_bounds.tscn" id="4_nko3o"]
 [ext_resource type="PackedScene" uid="uid://beyvkrc6dc81" path="res://scenes/main_UI.tscn" id="5_hi2au"]
 [ext_resource type="Script" path="res://scripts/Path2D.gd" id="5_mc28x"]
+[ext_resource type="Curve2D" uid="uid://1w4sgdouh5e" path="res://resources/hostile_paths/top_left_to_btm_right.tres" id="6_mdup1"]
 [ext_resource type="AudioStream" uid="uid://ew10scxh7f2l" path="res://assets/audio/music/temp/th06_02.wav" id="7_gl4uq"]
 
 [sub_resource type="Gradient" id="Gradient_vuh17"]
@@ -20,12 +20,6 @@ height = 1024
 seamless = true
 color_ramp = SubResource("Gradient_vuh17")
 noise = SubResource("FastNoiseLite_4h714")
-
-[sub_resource type="Curve2D" id="Curve2D_idnn7"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 936.737, 142.738, 0, 0, 0, 0, 582.752, 183.169, 0, 0, 0, 0, 165.233, 227.754, 0, 0, 0, 0, -18.3145, 253.508)
-}
-point_count = 4
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_2np7j")
@@ -59,20 +53,6 @@ gizmo_extents = 28.0
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(216, -70)
 
-[node name="Path2D" type="Path2D" parent="."]
-position = Vector2(-255.84, -236.426)
-scale = Vector2(0.99157, 1.32708)
-curve = SubResource("Curve2D_idnn7")
-script = ExtResource("5_mc28x")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(936.737, 142.738)
-rotation = -2.76499
-rotates = false
-loop = false
-
-[node name="Basic_hostile" parent="Path2D/PathFollow2D" instance=ExtResource("3_8o1dl")]
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_gl4uq")
 volume_db = -6.559
@@ -80,8 +60,11 @@ autoplay = true
 
 [node name="UI" parent="." instance=ExtResource("5_hi2au")]
 
-[node name="Basic_hostile" parent="." instance=ExtResource("3_8o1dl")]
-position = Vector2(146, 80)
+[node name="Path2D" type="Path2D" parent="."]
+curve = ExtResource("6_mdup1")
+script = ExtResource("5_mc28x")
 
-[node name="Basic_hostile2" parent="." instance=ExtResource("3_8o1dl")]
-position = Vector2(287, 79)
+[node name="spawn_timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="spawn_timer" to="Path2D" method="_on_spawn_timer_timeout"]
