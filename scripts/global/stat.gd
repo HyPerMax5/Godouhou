@@ -3,6 +3,7 @@ signal lives_updated(lives)
 signal bombs_updated(bombs)
 signal graze_updated(graze)
 signal score_updated(score)
+signal power_updated(power)
 
 
 var lives:int = 3
@@ -10,6 +11,8 @@ var bombs:int = 2
 
 var graze:int
 var score:int
+var power:int = 15
+var max_power:int = 100
 
 var collision_dict = {
 	"World" : 0b1,

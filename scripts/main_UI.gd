@@ -9,7 +9,7 @@ extends CanvasLayer
 @onready var delta_label = %Delta
 @onready var graze_label = %Graze_count
 @onready var powerbar = %Powerbar
-
+@onready var power_label = %Power_label #つかれたー
 
 
 func _ready() -> void:
@@ -24,6 +24,10 @@ func _ready() -> void:
 	stat.emit_signal("bombs_updated", Stat.bombs)
 	
 	stat.connect("score_updated", on_score_updated)
+	stat.emit_signal("score_updated", Stat.score)
+	
+	stat.connect("power_updated", on_power_updated)
+	stat.emit_signal("power_updated", Stat.power)
 	
 	pass
 
@@ -60,8 +64,10 @@ func on_graze_updated(graze):
 func on_score_updated(score):
 	score_label.text = str(score)
 
-func _on_progress_bar_value_changed(value: float) -> void:
+func on_power_updated(value: float) -> void:
+	power_label.text = str(value)
 	var max_value = powerbar.max_value 
+	powerbar.set_value_no_signal(value)
 	if value >= max_value:
 		powerbar.get_child(0).visible = true
 	else:

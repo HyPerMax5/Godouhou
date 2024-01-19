@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5bfq3vrdbj22"]
+[gd_scene load_steps=9 format=3 uid="uid://b5bfq3vrdbj22"]
 
 [ext_resource type="Script" path="res://scripts/Character.gd" id="1_wa8qs"]
 [ext_resource type="AudioStream" uid="uid://c8675hgvwvawf" path="res://assets/audio/sfx/player/shoot.ogg" id="2_ubmhq"]
@@ -16,12 +16,14 @@ noise = SubResource("FastNoiseLite_flvug")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5r2ap"]
 size = Vector2(8, 8)
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_3yqd0"]
-a = Vector2(0, -2)
-b = Vector2(0, 34)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k28vb"]
+size = Vector2(36, 36)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t31cj"]
 radius = 85.0529
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2iuna"]
+radius = 850.0
 
 [node name="Character" type="CharacterBody2D"]
 position = Vector2(323, 292)
@@ -36,14 +38,8 @@ visible = false
 scale = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_5r2ap")
 
-[node name="bullet-spawn" type="Marker2D" parent="."]
-position = Vector2(0, -37)
-gizmo_extents = 19.0
-
-[node name="bullet-parent" type="Node" parent="bullet-spawn"]
-
 [node name="shoot-timer" type="Timer" parent="."]
-wait_time = 0.064
+wait_time = 0.039
 
 [node name="Graze" type="Area2D" parent="."]
 collision_layer = 8
@@ -51,22 +47,7 @@ collision_mask = 16
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Graze"]
-position = Vector2(-17, -16)
-shape = SubResource("SegmentShape2D_3yqd0")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Graze"]
-position = Vector2(17, -16)
-shape = SubResource("SegmentShape2D_3yqd0")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Graze"]
-position = Vector2(16, 17)
-rotation = 1.5708
-shape = SubResource("SegmentShape2D_3yqd0")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Graze"]
-position = Vector2(16, -17)
-rotation = 1.5708
-shape = SubResource("SegmentShape2D_3yqd0")
+shape = SubResource("RectangleShape2D_k28vb")
 
 [node name="Death" type="Area2D" parent="."]
 collision_layer = 2
@@ -91,6 +72,17 @@ monitorable = false
 shape = SubResource("CircleShape2D_t31cj")
 debug_color = Color(0.603922, 0.541176, 0.0392157, 0.419608)
 
+[node name="Bomb" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 112
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bomb"]
+visible = false
+shape = SubResource("CircleShape2D_2iuna")
+debug_color = Color(0.956863, 0, 0, 0.203922)
+
 [connection signal="timeout" from="shoot-timer" to="." method="on_shoottimer_timeout"]
 [connection signal="body_entered" from="Graze" to="." method="on_graze_body_entered"]
 [connection signal="body_entered" from="Death" to="." method="on_death_body_entered"]
+[connection signal="body_entered" from="Bomb" to="." method="_on_bomb_body_entered"]

@@ -23,7 +23,7 @@ noise = SubResource("FastNoiseLite_4h714")
 
 [sub_resource type="Curve2D" id="Curve2D_idnn7"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 970, 593, 0, 0, 0, 0, 439, 383, 0, 0, 0, 0, 183, 200, 0, 0, 0, 0, 19, 4)
+"points": PackedVector2Array(0, 0, 0, 0, 936.737, 142.738, 0, 0, 0, 0, 582.752, 183.169, 0, 0, 0, 0, 165.233, 227.754, 0, 0, 0, 0, -18.3145, 253.508)
 }
 point_count = 4
 
@@ -56,27 +56,32 @@ texture = SubResource("NoiseTexture2D_r2rtf")
 position = Vector2(208, 321)
 gizmo_extents = 28.0
 
-[node name="UI" parent="." instance=ExtResource("5_hi2au")]
-
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(216, -70)
 
 [node name="Path2D" type="Path2D" parent="."]
-position = Vector2(-264, -176)
+position = Vector2(-255.84, -236.426)
+scale = Vector2(0.99157, 1.32708)
 curve = SubResource("Curve2D_idnn7")
 script = ExtResource("5_mc28x")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(467.337, 394.207)
+position = Vector2(936.737, 142.738)
 rotation = -2.76499
-progress = 540.54
 rotates = false
 loop = false
 
 [node name="Basic_hostile" parent="Path2D/PathFollow2D" instance=ExtResource("3_8o1dl")]
-rotation = 2.76499
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_gl4uq")
 volume_db = -6.559
 autoplay = true
+
+[node name="UI" parent="." instance=ExtResource("5_hi2au")]
+
+[node name="Basic_hostile" parent="." instance=ExtResource("3_8o1dl")]
+position = Vector2(146, 80)
+
+[node name="Basic_hostile2" parent="." instance=ExtResource("3_8o1dl")]
+position = Vector2(287, 79)

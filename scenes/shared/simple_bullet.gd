@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 			hit.collider.emit_signal("body_entered", null)
 			queue_free()
 		if hit.collider.is_in_group("Hostile"):
-			hit.collider.on_hitbox_entered()
+			hit.collider.death()
 			queue_free()
 		if hit.collider.is_in_group("Player Graze"):
 			hit.collider.emit_signal("body_entered", null)

@@ -19,6 +19,7 @@ func _process(_delta: float) -> void:
 
 func _on_shoottimer_timeout() -> void:
 	var hostile_bullet := bullet.instantiate()
+	hostile_bullet.add_to_group("Hostile")
 	hostile_bullet.speed = -1000
 	hostile_bullet.collision = Stat.collision_dict["Player&Graze"]
 	bullet_parent.add_child(hostile_bullet)
@@ -26,7 +27,7 @@ func _on_shoottimer_timeout() -> void:
 	
 
 
-func on_hitbox_entered() -> void:
+func death() -> void:
 	#death animation thing or smth
 	audio.set_stream(death_sound)
 	Stat.score += kill_score
